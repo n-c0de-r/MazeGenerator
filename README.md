@@ -1,5 +1,15 @@
 # Maze Generator
 Making a maze generator in Unity with C# as a part of an assessment task for an internship position.
+After lots of back and forth this implements the recursive backtracking algorithm.
+For efficiency reasons, it also should use multible starting cells, and instead of classes uses structs.
+Other than that it should hopefully rely on bitwise operations for calculating paths, as these are faster.
+
+### Style
+This project generates 2D pixelart mazes
+
+### Bonus
+Provides a little game experience within the labyrinth.
+With collectible objects and some tiny additional challenge.
 
 ## Getting Started
 
@@ -7,7 +17,7 @@ These instructions will help you get the project up and running on your local ma
 
 ### Prerequisites
 
-- [Unity](https://unity.com/)
+- [Unity](https://unity.com/) (Editor Version 2021.2.12f1)
 - [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
 
 ### Installing
@@ -34,6 +44,11 @@ mazeGenerator.GenerateMaze();
 ```cs
 int[,] maze = mazeGenerator.maze;
 ```
+## General Usage
+
+1. Open the project in Unity
+
+2. Run the project and follow the instructions given in the User Interface.
 
 ## Built With
 
