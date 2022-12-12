@@ -76,6 +76,7 @@ This project is not licensed under any particular license.
 ## Acknowledgments
 
 - [Wikipedia](https://en.wikipedia.org/wiki/Maze_generation_algorithm) - Provided link in the assessment task
+- [Think Labyrinth by Walter D. Pullen](http://www.astrolog.org/labyrnth/algrithm.htm)
 - [Stack Overflow](https://stackoverflow.com/questions/38502/whats-a-good-algorithm-to-generate-a-maze) - For hinting at Jamis Buck
 - [Jamis Buck - GitHub](https://github.com/jamis) - This guy is an institution on mazes
 - [Jamis Buck - Maze Blog](https://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap) - His visual representation helped me pick the right idea
