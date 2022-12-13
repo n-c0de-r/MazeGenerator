@@ -2608,6 +2608,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 823a3acb9284a7a439900a48fb5f941a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  widthSlider: {fileID: 596366695}
+  heightSlider: {fileID: 26828920}
 --- !u!4 &1865619426
 Transform:
   m_ObjectHideFlags: 0

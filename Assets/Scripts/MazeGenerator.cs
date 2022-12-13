@@ -24,33 +24,15 @@ public class MazeGenerator : MonoBehaviour
     // bytes would fit well, but integers are easier on coding further.
     private int width, height;
 
-    /// <summary>
-    /// Constructor for a 2 dimensional perfect maze.
-    /// </summary>
-    /// <param name="sizeX">The given width of the maze.</param>
-    /// <param name="sizeY">The given height of the maze.</param>
-    public MazeGenerator(int sizeX, int sizeY)
-    {
-        // Clamp, just in case a value from a slider is passed in wrongly.
-        width   = Mathf.Clamp(sizeX, MIN_SIZE, MAX_SIZE);
-        height  = Mathf.Clamp(sizeY, MIN_SIZE, MAX_SIZE);
-        
-        maze = new int[sizeX, sizeY];
-
-        directions = new Direction[] {
-            new Direction(1, 0, -1),    // North
-            new Direction(2, 1, 0),     // East
-            new Direction(4, 0, 1),     // South
-            new Direction(8, -1, 0),    // West
-        };
-    }
+    [SerializeField]
+    private Slider widthSlider, heightSlider;
 
     /// <summary>
     /// Generates a new maze.
     /// </summary>
     public void GenerateMaze()
     {
-        InitializeFields(5,5);
+        InitializeFields((int)widthSlider.value, (int)heightSlider.value);
         ClearMaze();
 
         int halfX = width  >> 1;    // Half the size, for starting positions of
@@ -65,31 +47,15 @@ public class MazeGenerator : MonoBehaviour
         // TODO: Think about adding more algorithms to pick here, as this was rather easy.
         Debug.Log("Maze generated");
         String s = "";
-        for (int i = 0; i < height; i++)
+        for (int i = 0; i < width; i++)
         {
-            for (int j = 0; j < width; j++)
+            for (int j = 0; j < height; j++)
             {
                 s += maze[i, j];
             }
-            s += " ";
+            s += "\n";
         }
         Debug.Log(s);
-    }
-
-    private void InitializeFields(int sizeX, int sizeY)
-    {
-        // Clamp, just in case a value from a slider is passed in wrongly.
-        width = Mathf.Clamp(sizeX, 5, MAX_SIZE);
-        height = Mathf.Clamp(sizeY, 5, MAX_SIZE);
-
-        maze = new int[width, height];
-
-        directions = new Direction[] {
-            new Direction(1, 0, -1),    // North
-            new Direction(2, 1, 0),     // East
-            new Direction(4, 0, 1),     // South
-            new Direction(8, -1, 0),    // West
-        };
     }
 
     // Getter and Setter methods, just in case it's needed later.
@@ -140,6 +106,27 @@ public class MazeGenerator : MonoBehaviour
     }
 
     // Private internal calculating methods.
+
+    /// <summary>
+    /// Initializes the fields as Unity classes can't use constructors directly.
+    /// </summary>
+    /// <param name="sizeX">The given width of the maze.</param>
+    /// <param name="sizeY">The given height of the maze.</param>
+    private void InitializeFields(int sizeX, int sizeY)
+    {
+        // Clamp, just in case a value from a slider is passed in wrongly.
+        width = Mathf.Clamp(sizeX, MIN_SIZE, MAX_SIZE);
+        height = Mathf.Clamp(sizeY, MIN_SIZE, MAX_SIZE);
+
+        maze = new int[width, height];
+
+        directions = new Direction[] {
+            new Direction(1, 0, -1),    // North
+            new Direction(2, 1, 0),     // East
+            new Direction(4, 0, 1),     // South
+            new Direction(8, -1, 0),    // West
+        };
+    }
 
     /// <summary>
     /// Set the starting cells to all walls / no paths (0)
