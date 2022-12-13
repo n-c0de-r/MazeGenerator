@@ -167,7 +167,7 @@ public class MazeGenerator : MonoBehaviour
             if(IsValidMove(newX, newY))
             {
                 maze[currentX, currentY] |= dir.value;
-                maze[newX, newY] |= dir.opposite;
+                maze[newX, newY] |= dir.opposite; // TODO: fix the error
 
                 RecursiveBacktracker(newX, newY);
             }
