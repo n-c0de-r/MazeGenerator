@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -28,7 +29,7 @@ public class MazeGenerator : MonoBehaviour
     /// </summary>
     /// <param name="sizeX">The given width of the maze.</param>
     /// <param name="sizeY">The given height of the maze.</param>
-    public MazeGenerator(byte sizeX, byte sizeY)
+    public MazeGenerator(int sizeX, int sizeY)
     {
         // Clamp, just in case a value from a slider is passed in wrongly.
         width   = Mathf.Clamp(sizeX, MIN_SIZE, MAX_SIZE);
@@ -49,6 +50,7 @@ public class MazeGenerator : MonoBehaviour
     /// </summary>
     public void GenerateMaze()
     {
+        InitializeFields(5,5);
         ClearMaze();
 
         int halfX = width  >> 1;    // Half the size, for starting positions of
@@ -61,6 +63,33 @@ public class MazeGenerator : MonoBehaviour
         RecursiveBacktracker(Random.Range(halfX, width),   Random.Range(halfY, height));  // Down right
 
         // TODO: Think about adding more algorithms to pick here, as this was rather easy.
+        Debug.Log("Maze generated");
+        String s = "";
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                s += maze[i, j];
+            }
+            s += " ";
+        }
+        Debug.Log(s);
+    }
+
+    private void InitializeFields(int sizeX, int sizeY)
+    {
+        // Clamp, just in case a value from a slider is passed in wrongly.
+        width = Mathf.Clamp(sizeX, 5, MAX_SIZE);
+        height = Mathf.Clamp(sizeY, 5, MAX_SIZE);
+
+        maze = new int[width, height];
+
+        directions = new Direction[] {
+            new Direction(1, 0, -1),    // North
+            new Direction(2, 1, 0),     // East
+            new Direction(4, 0, 1),     // South
+            new Direction(8, -1, 0),    // West
+        };
     }
 
     // Getter and Setter methods, just in case it's needed later.
@@ -153,7 +182,7 @@ public class MazeGenerator : MonoBehaviour
     /// <returns>True or false if the cell is valid or not.</returns>
     private bool IsValidMove(int x, int y)
     {
-        return x >= 0 && x < width && y >= 0 && y < height && maze[x, y] != 0;
+        return x >= 0 && x < width && y >= 0 && y < height && maze[x, y] == 0;
     }
 
     /// <summary>
