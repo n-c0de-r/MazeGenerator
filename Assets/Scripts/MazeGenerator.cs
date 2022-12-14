@@ -32,7 +32,7 @@ public class MazeGenerator : MonoBehaviour
     /// </summary>
     public void GenerateMaze()
     {
-        InitializeFields((int)widthSlider.value, (int)heightSlider.value);
+        InitializeFields();
         ClearMaze();
 
         int halfX = width  >> 1;    // Half the size, for starting positions of
@@ -45,20 +45,27 @@ public class MazeGenerator : MonoBehaviour
         RecursiveBacktracker(Random.Range(halfX, width),   Random.Range(halfY, height));  // Down right
 
         // TODO: Think about adding more algorithms to pick here, as this was rather easy.
+
+        // TODO: Remove, just for testing. Might be useful for displaying later.
         Debug.Log("Maze generated");
         String s = "";
-        for (int i = 0; i < width; i++)
+        for (int y = 0; y < height; y++)
         {
-            for (int j = 0; j < height; j++)
+            for (int x = 0; x < width; x++)
             {
-                s += maze[i, j];
+                if (maze[x, y] < 10) {
+                    s += "0" + maze[x, y] + " ";
+                } else
+                {
+                    s += maze[x, y] + " ";
+                }
             }
             s += "\n";
         }
         Debug.Log(s);
     }
 
-    // Getter and Setter methods, just in case it's needed later.
+    // Getter and Setter methods.
 
     /// <summary>
     /// Accessor method for the maze itself.
@@ -102,7 +109,7 @@ public class MazeGenerator : MonoBehaviour
     /// <param name="newHeight">The new height to set the maze to.</param>
     public void SetHeight(int newHeight)
     {
-        width = newHeight;
+        height = newHeight;
     }
 
     // Private internal calculating methods.
@@ -110,14 +117,8 @@ public class MazeGenerator : MonoBehaviour
     /// <summary>
     /// Initializes the fields as Unity classes can't use constructors directly.
     /// </summary>
-    /// <param name="sizeX">The given width of the maze.</param>
-    /// <param name="sizeY">The given height of the maze.</param>
-    private void InitializeFields(int sizeX, int sizeY)
+    private void InitializeFields()
     {
-        // Clamp, just in case a value from a slider is passed in wrongly.
-        width = Mathf.Clamp(sizeX, MIN_SIZE, MAX_SIZE);
-        height = Mathf.Clamp(sizeY, MIN_SIZE, MAX_SIZE);
-
         maze = new int[width, height];
 
         directions = new Direction[] {
@@ -154,7 +155,7 @@ public class MazeGenerator : MonoBehaviour
             if(IsValidMove(newX, newY))
             {
                 maze[currentX, currentY] |= dir.value;
-                maze[newX, newY] |= dir.opposite; // TODO: fix the error
+                maze[newX, newY] |= dir.opposite;
 
                 RecursiveBacktracker(newX, newY);
             }
