@@ -5,7 +5,9 @@ For efficiency reasons, it also should use multible starting cells, and instead 
 Other than that it should hopefully rely on bitwise operations for calculating paths, as these are faster.
 
 ### Style
-This project generates 2D pixelart mazes
+This project generates 2D pixelart mazes.
+
+[LibreSprite](https://github.com/LibreSprite/LibreSprite) was used to make some assets.
 
 ### Bonus
 Provides a little game experience within the labyrinth.

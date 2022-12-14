@@ -11,6 +11,9 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class MazeGenerator : MonoBehaviour
 {
+    [SerializeField]
+    TileMapper tileMapper;
+
     // The maze grid, where 0 means no path, any other (1-15) a connection.
     private int[,] maze;
 
@@ -49,7 +52,7 @@ public class MazeGenerator : MonoBehaviour
         ClearMaze();
         InitializeStack();
 
-        // Call the maze generation algorithm on each starting cell.
+        // Call the maze generation algorithm.
         IterativeBacktracker();
 
         // TODO: Misconception - The former code doesn't even run in parallel
@@ -57,23 +60,7 @@ public class MazeGenerator : MonoBehaviour
 
         // TODO: Think about adding more algorithms to pick here, as this was rather easy.
 
-        // TODO: Remove, just for testing. Might be useful for displaying later.
-        Debug.Log("Maze generated");
-        String s = "";
-        for (int y = 0; y < height; y++)
-        {
-            for (int x = 0; x < width; x++)
-            {
-                if (maze[x, y] < 10) {
-                    s += "0" + maze[x, y] + " ";
-                } else
-                {
-                    s += maze[x, y] + " ";
-                }
-            }
-            s += "\n";
-        }
-        Debug.Log(s);
+        tileMapper.PaintMap(maze, width, height);
     }
 
     // Getter and Setter methods.
@@ -140,7 +127,7 @@ public class MazeGenerator : MonoBehaviour
     /// </summary>
     private void ClearMaze()
     {
-        Array.Clear(maze, 0, (width * height) - 1);
+        Array.Clear(maze, 0, (width * height));
     }
 
     /// <summary>
