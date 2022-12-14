@@ -12,8 +12,8 @@ public struct Direction
     /// Consturctor of a Direction struct.
     /// </summary>
     /// <param name="newValue">New value to set. Bit representation of a direction.</param>
-    /// <param name="newX">New X coordinate to set. Represents the cell to visit next.</param>
-    /// <param name="newY">New Y coordinate to set. Represents the cell to visit next.</param>
+    /// <param name="newX">New X coordinate to set. Represents the direction to go to next.</param>
+    /// <param name="newY">New Y coordinate to set. Represents the direction to go to next.</param>
     public Direction(int newValue, int newX, int newY)
     {
         this.value = newValue;

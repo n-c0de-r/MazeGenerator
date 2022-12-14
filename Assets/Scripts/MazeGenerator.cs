@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -10,39 +11,49 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class MazeGenerator : MonoBehaviour
 {
-    // Declaring bounding sizes as specified in the task description. 
-    private const int MAX_SIZE = 250;
-    private const int MIN_SIZE = 10;
-
     // The maze grid, where 0 means no path, any other (1-15) a connection.
     private int[,] maze;
 
-    // Structs holding information on directions
+    // Structs holding information on directions.
     private Direction[] directions;
+
+    // The first starting cell.
+    private Stack<Cell> cells;
 
     // Sizes can't be negative and never exceed 250 in this project,
     // bytes would fit well, but integers are easier on coding further.
     private int width, height;
 
-    [SerializeField]
-    private Slider widthSlider, heightSlider;
+    /// <summary>
+    /// Sets up direction values only when the Object gets activated.
+    /// </summary>
+    private void Start()
+    {
+        directions = new Direction[] {
+            new Direction(1, 0, -1),    // North
+            new Direction(2, 1, 0),     // East
+            new Direction(4, 0, 1),     // South
+            new Direction(8, -1, 0),    // West
+        };
+
+        cells = new Stack<Cell>();
+    }
+
 
     /// <summary>
     /// Generates a new maze.
     /// </summary>
     public void GenerateMaze()
     {
-        InitializeFields();
+        ResetMaze();
         ClearMaze();
+        InitializeStack();
 
-        int halfX = width  >> 1;    // Half the size, for starting positions of
-        int halfY = height >> 1;    // the four starting cells in each quadrant
+        // Call the maze generation algorithm on each starting cell.
+        IterativeBacktracker();
 
-        // Call the maze generation algorithm on each starting cell in their respective quadrant
-        RecursiveBacktracker(Random.Range(0, halfX),       Random.Range(0, halfY));       // Up left
-        RecursiveBacktracker(Random.Range(halfX, width),   Random.Range(0, halfY));       // Up right
-        RecursiveBacktracker(Random.Range(0, halfX),       Random.Range(halfY, height));  // Down left
-        RecursiveBacktracker(Random.Range(halfX, width),   Random.Range(halfY, height));  // Down right
+        // TODO: Misconception - The former code doesn't even run in parallel
+        //RecursiveBacktracker(x,y);
 
         // TODO: Think about adding more algorithms to pick here, as this was rather easy.
 
@@ -115,18 +126,13 @@ public class MazeGenerator : MonoBehaviour
     // Private internal calculating methods.
 
     /// <summary>
-    /// Initializes the fields as Unity classes can't use constructors directly.
+    /// Resets the maze holding array.
     /// </summary>
-    private void InitializeFields()
+    private void ResetMaze()
     {
-        maze = new int[width, height];
+        if (maze != null && (maze.GetLength(0) == width && maze.GetLength(1) == height) ) return;
 
-        directions = new Direction[] {
-            new Direction(1, 0, -1),    // North
-            new Direction(2, 1, 0),     // East
-            new Direction(4, 0, 1),     // South
-            new Direction(8, -1, 0),    // West
-        };
+        maze = new int[width, height];
     }
 
     /// <summary>
@@ -135,6 +141,15 @@ public class MazeGenerator : MonoBehaviour
     private void ClearMaze()
     {
         Array.Clear(maze, 0, (width * height) - 1);
+    }
+
+    /// <summary>
+    /// Clears stack and initializes first cell.
+    /// </summary>
+    private void InitializeStack()
+    {
+        cells.Clear();
+        cells.Push(new Cell(Random.Range(0, width >> 1), Random.Range(0, height >> 1)));
     }
 
     /// <summary>
@@ -158,6 +173,35 @@ public class MazeGenerator : MonoBehaviour
                 maze[newX, newY] |= dir.opposite;
 
                 RecursiveBacktracker(newX, newY);
+            }
+        }
+    }
+
+    /// <summary>
+    /// The actual implementation of the generating algorithm.
+    /// Using the Iterative Backtracking approach.
+    /// </summary>
+    /// <param name="currentX"></param>
+    /// <param name="currentY"></param>
+    private void IterativeBacktracker()
+    {
+        while (cells.Count > 0) {
+            Cell current = cells.Pop();
+
+            ShuffleDirections(directions);
+
+            foreach (Direction dir in directions)
+            {
+                int newX = current.x + dir.x;
+                int newY = current.y + dir.y;
+
+                if (IsValidMove(newX, newY))
+                {
+                    maze[current.x, current.y] |= dir.value;
+                    maze[newX, newY] |= dir.opposite;
+
+                    cells.Push(new Cell(newX, newY));
+                }
             }
         }
     }
