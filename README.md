@@ -87,6 +87,6 @@ This project is not licensed under any particular license.
 
 ## Screenshots
 
-![Maze](screenshots/maze.png)
+![MazeGenerator_v0.1](/Screenshots/maze_show.gif)
 
 A maze generated using the `MazeGenerator` script.
