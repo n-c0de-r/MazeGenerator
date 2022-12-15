@@ -85,6 +85,9 @@ This project is not licensed under any particular license.
 - [Youtube - showing some algorithms](https://www.youtube.com/watch?v=sVcB8vUFlmU)
 - [Youtube - some more algorithms vizualized](https://www.youtube.com/watch?v=U3meEXvYFsc)
 
+- Everyone on [OpenGameArt.org](https://opengameart.org/)
+- Intro sound [Warp 1](https://opengameart.org/content/warp-sound-1) by [Artur](https://opengameart.org/users/arthur)
+
 ## Screenshots
 
 ![MazeGenerator_v0.1](/Screenshots/maze_show.gif)

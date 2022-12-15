@@ -19,6 +19,9 @@ public class MazeMenu : MonoBehaviour
     [SerializeField]
     private MazeGenerator generator;
 
+    [SerializeField]
+    FadeAnimator fadeAnimator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +31,7 @@ public class MazeMenu : MonoBehaviour
         generator.SetHeight((int)heightSlider.value);
 
         AddListeners();
+        fadeAnimator.FadeIn();
     }
 
     /// <summary>
