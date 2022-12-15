@@ -60,4 +60,10 @@ public class TileMapper : MonoBehaviour
             }
         }
     }
+
+    public Bounds GetBounds()
+    {
+        wallMap.CompressBounds();
+        return wallMap.localBounds;
+    }
 }
