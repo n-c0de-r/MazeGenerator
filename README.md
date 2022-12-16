@@ -9,7 +9,10 @@ This project generates 2D pixelart mazes.
 
 [LibreSprite](https://github.com/LibreSprite/LibreSprite) was used to make some assets.
 
-### Bonus
+### Multimedia
+Sources mainly from [OpenGameArt.org](https://opengameart.org/), editind via [Audacity](https://www.audacityteam.org/) for audio, and [Avidemux](https://avidemux.sourceforge.net/) & [Shotcut](https://shotcut.org/) for video
+
+### Bonus (if I can make it)
 Provides a little game experience within the labyrinth.
 With collectible objects and some tiny additional challenge.
 

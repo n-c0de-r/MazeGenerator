@@ -14,19 +14,11 @@ public class Intro : MonoBehaviour
     [SerializeField]
     private FadeAnimator fadeAnimator;
 
-    private long frames;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        frames = (long)player.frameCount-1;
-    }
-
     void Update()
     {
-        if (player.frame == frames)
+        // Fade out, once the video has played back
+        if (player.frame > 0 && !player.isPlaying)
         {
-            // Once the frames are all done, fade out.
             fadeAnimator.FadeOut();
         }
     }
