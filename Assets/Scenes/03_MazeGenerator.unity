@@ -950,7 +950,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorMap: {fileID: 752834673}
   wallMap: {fileID: 2095211994}
-  floorTile: {fileID: 11400000, guid: 8fdf85d3deb762147a33d43f9ac28dc0, type: 2}
+  floorTiles:
+  - {fileID: 11400000, guid: 8fdf85d3deb762147a33d43f9ac28dc0, type: 2}
+  - {fileID: 11400000, guid: 02ae1a0de6843ae44bb5f7b5cc4206cc, type: 2}
   dummyWalls:
   - {fileID: 11400000, guid: dc388f1c232f6b8408b99179b0388e30, type: 2}
   - {fileID: 11400000, guid: c0dedb25255682042ae17bc51a73d2ed, type: 2}

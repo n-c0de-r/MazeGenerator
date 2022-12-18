@@ -12,7 +12,7 @@ public class TileMapper : MonoBehaviour
     private Tilemap wallMap;
 
     [SerializeField]
-    private Tile floorTile;
+    private Tile[] floorTiles;
 
     [SerializeField]
     private Tile[] dummyWalls, metalWalls, brickWalls, rockWalls;
@@ -55,6 +55,8 @@ public class TileMapper : MonoBehaviour
         wallMap.ClearAllTiles();
 
         Vector3Int pos = new Vector3Int(0, 0, 0);
+        Tile floorTile;
+        floorTile = (styleSelector.value == 0) ? floorTiles[0] : floorTiles[1];
 
         for (int y = 0; y < mazeHeight; y++)
         {
@@ -62,6 +64,7 @@ public class TileMapper : MonoBehaviour
             {
                 pos.x = x - mazeWidth / 2;
                 pos.y = y - mazeHeight / 2;
+                
                 floorMap.SetTile(pos, floorTile);
                 wallMap.SetTile(pos, wallTiles[mazeData[x, mazeHeight - y - 1]]);
             }
