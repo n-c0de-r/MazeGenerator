@@ -111,6 +111,14 @@ public class MazeGenerator : MonoBehaviour
         height = newHeight;
     }
 
+    /// <summary>
+    /// Quits the application.
+    /// </summary>
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
     // Private internal calculating methods.
 
     /// <summary>

@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.Video;
-using UnityEngine.SceneManagement;
-using System.Collections;
 
 /// <summary>
 /// Plays a simple video intro of my logo.

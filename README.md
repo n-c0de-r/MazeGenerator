@@ -7,10 +7,8 @@ Other than that it should hopefully rely on bitwise operations for calculating p
 ### Style
 This project generates 2D pixelart mazes.
 
-[LibreSprite](https://github.com/LibreSprite/LibreSprite) was used to make some assets.
-
 ### Multimedia
-Sources mainly from [OpenGameArt.org](https://opengameart.org/), editind via [Audacity](https://www.audacityteam.org/) for audio, and [Avidemux](https://avidemux.sourceforge.net/) & [Shotcut](https://shotcut.org/) for video
+Sources mainly from [OpenGameArt.org](https://opengameart.org/), editing via [Audacity](https://www.audacityteam.org/) for audio, and [Avidemux](https://avidemux.sourceforge.net/) & [Shotcut](https://shotcut.org/) for video, [LibreSprite](https://github.com/LibreSprite/LibreSprite) was used to edit & make some assets.
 
 ### Bonus (if I can make it)
 Provides a little game experience within the labyrinth.
@@ -90,6 +88,15 @@ This project is not licensed under any particular license.
 
 - Everyone on [OpenGameArt.org](https://opengameart.org/)
 - Intro sound [Warp 1](https://opengameart.org/content/warp-sound-1) by [Artur](https://opengameart.org/users/arthur)
+
+- [Rock sprite](https://opengameart.org/content/some-tiles) by [vk](https://opengameart.org/users/vk)
+- [Brick](https://opengameart.org/content/sandstone-brick-connecting-tileset-16x16), [Steampunk](https://opengameart.org/content/steampunk-brick-new-connecting-tileset-16x16) and [Jungle](https://opengameart.org/content/jungle-dirt-background-connecting-tileset-16x16) sprite by [KnoblePersona](https://opengameart.org/users/knoblepersona)
+- [Sky Background](https://opengameart.org/content/sky-background) by [PauR](https://opengameart.org/users/paur)
+
+- Main Font ["Pythia"](https://www.dafont.com/fr/pythia.font) by [Blambot](https://www.dafont.com/fr/blambot.d1)
+
+- [Rock sound](https://opengameart.org/content/breaking-rock) & [boulder Drop](https://opengameart.org/content/moving-boulder) by [themightyglider](https://opengameart.org/users/themightyglider)
+- [Ancient Temple](https://opengameart.org/content/ancient-temple) Music by [Alexandr Zhelanov](https://opengameart.org/content/little-epic-journey)
 
 ## Screenshots
 
