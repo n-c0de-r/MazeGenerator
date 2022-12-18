@@ -1019,6 +1019,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dfa5bba2fa768c1499eaf0b74501b2d6, type: 2}
   - {fileID: 11400000, guid: 1d9ba32f6c15d534d820617a79392fc8, type: 2}
   - {fileID: 11400000, guid: f0156ea84ff82be418d89fd976680bbd, type: 2}
+  styleSelector: {fileID: 929301028}
 --- !u!1 &419400395
 GameObject:
   m_ObjectHideFlags: 0
@@ -1774,7 +1775,6 @@ MonoBehaviour:
   heightSlider: {fileID: 26828920}
   widthInput: {fileID: 951399375}
   heightInput: {fileID: 744467301}
-  styleSelector: {fileID: 929301028}
   toggleButton: {fileID: 419400397}
   toggleText: {fileID: 1895729750}
   generator: {fileID: 1865619425}
@@ -2504,10 +2504,22 @@ MonoBehaviour:
     - m_Text: Brick (buggy)
       m_Image: {fileID: 0}
     - m_Text: Rock (buggy)
-      m_Image: {fileID: 529816542, guid: 381ecc801a9e65a40bf66349d5adb6e4, type: 3}
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 407945708}
+        m_TargetAssemblyTypeName: TileMapper, Assembly-CSharp
+        m_MethodName: ChangeStyle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &929301029
 MonoBehaviour:

@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class TileMapper : MonoBehaviour
 {
@@ -16,7 +17,11 @@ public class TileMapper : MonoBehaviour
     [SerializeField]
     private Tile[] dummyWalls, metalWalls, brickWalls, rockWalls;
 
+    [SerializeField]
+    private Dropdown styleSelector;
+
     private Tile[] wallTiles;
+    private Tile[][] styles;
 
     /// <summary>
     /// Iterates over the given data and lays tiles accordingly.
@@ -74,6 +79,17 @@ public class TileMapper : MonoBehaviour
     }
     private void Start()
     {
-        wallTiles = dummyWalls;
+        styles = new Tile[styleSelector.options.Count][];
+        styles[0] = dummyWalls;
+        styles[1] = metalWalls;
+        styles[2] = brickWalls;
+        styles[3] = rockWalls;
+
+        wallTiles = styles[styleSelector.value];
+    }
+
+    public void ChangeStyle()
+    {
+        wallTiles = styles[styleSelector.value];
     }
 }

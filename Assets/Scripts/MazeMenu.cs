@@ -15,9 +15,6 @@ public class MazeMenu : MonoBehaviour
     private InputField widthInput, heightInput;
 
     [SerializeField]
-    private Dropdown styleSelector;
-
-    [SerializeField]
     private Toggle toggleButton;
 
     [SerializeField]
