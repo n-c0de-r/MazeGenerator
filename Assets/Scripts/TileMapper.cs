@@ -11,9 +11,11 @@ public class TileMapper : MonoBehaviour
     private Tilemap wallMap;
 
     [SerializeField]
-    private Tile[] floorTiles;
+    private Tile floorTile;
 
     [SerializeField]
+    private Tile[] dummyWalls, metalWalls, brickWalls, rockWalls;
+
     private Tile[] wallTiles;
 
     /// <summary>
@@ -55,15 +57,23 @@ public class TileMapper : MonoBehaviour
             {
                 pos.x = x - mazeWidth / 2;
                 pos.y = y - mazeHeight / 2;
-                floorMap.SetTile(pos, floorTiles[0]);
+                floorMap.SetTile(pos, floorTile);
                 wallMap.SetTile(pos, wallTiles[mazeData[x, mazeHeight - y - 1]]);
             }
         }
     }
 
+    /// <summary>
+    /// Returns the maps bound size.
+    /// </summary>
+    /// <returns>The number of set tiles.</returns>
     public Bounds GetBounds()
     {
         wallMap.CompressBounds();
         return wallMap.localBounds;
+    }
+    private void Start()
+    {
+        wallTiles = dummyWalls;
     }
 }
