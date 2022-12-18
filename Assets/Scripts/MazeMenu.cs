@@ -1,3 +1,4 @@
+using System.Reflection.Emit;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,15 @@ public class MazeMenu : MonoBehaviour
 
     [SerializeField]
     private InputField widthInput, heightInput;
+
+    [SerializeField]
+    private Dropdown styleSelector;
+
+    [SerializeField]
+    private Toggle toggleButton;
+
+    [SerializeField]
+    private Text toggleText;
 
     [SerializeField]
     private MazeGenerator generator;
@@ -41,11 +51,25 @@ public class MazeMenu : MonoBehaviour
         widthSlider.onValueChanged.AddListener(delegate {
             widthInput.text = "" + widthSlider.value;
             generator.SetWidth((int)widthSlider.value);
+
+            if (toggleButton.isOn)
+            {
+                heightSlider.value = widthSlider.value;
+                heightInput.text = "" + widthSlider.value;
+                generator.SetWidth((int)widthSlider.value);
+            }
         });
 
         heightSlider.onValueChanged.AddListener(delegate {
-            heightInput.text =  "" + heightSlider.value;
+            heightInput.text = "" + heightSlider.value;
             generator.SetHeight((int)heightSlider.value);
+
+            if (toggleButton.isOn)
+            {
+                widthSlider.value = heightSlider.value;
+                widthInput.text = "" + heightSlider.value;
+                generator.SetWidth((int)heightSlider.value);
+            } 
         });
 
         widthInput.onEndEdit.AddListener(delegate {
@@ -54,6 +78,14 @@ public class MazeMenu : MonoBehaviour
             widthInput.text = "" + value;
             widthSlider.value = value;
             generator.SetWidth(value);
+
+            if (toggleButton.isOn)
+            {
+                int.TryParse(heightInput.text, out value);
+                heightInput.text = "" + value;
+                heightSlider.value = value;
+                generator.SetHeight(value);
+            }
         });
 
         heightInput.onEndEdit.AddListener(delegate {
@@ -62,6 +94,26 @@ public class MazeMenu : MonoBehaviour
             heightInput.text = "" + value;
             heightSlider.value = value;
             generator.SetHeight(value);
+
+            if (toggleButton.isOn)
+            {
+                int.TryParse(widthInput.text, out value);
+                widthInput.text = "" + value;
+                widthSlider.value = value;
+                generator.SetWidth(value);
+            }
         });
+    }
+
+    public void ToggleText()
+    {
+        if (toggleButton.isOn)
+        {
+            toggleText.text = "Even";
+        }
+        else
+        {
+            toggleText.text = "Uneven";
+        }
     }
 }

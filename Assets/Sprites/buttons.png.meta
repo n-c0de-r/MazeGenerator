@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f7621da26ebeea6409562181bc596903
+guid: 381ecc801a9e65a40bf66349d5adb6e4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,7 +117,28 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: buttons_0
+      name: Buttons_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 291
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddba829b97f1e5742b526f406284fb79
+      internalID: 323927788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Buttons_1
       rect:
         serializedVersion: 2
         x: 0
@@ -131,14 +152,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6ca3707a49e745245b157c5ece2b9002
-      internalID: -266602153
+      spriteID: fa787a3f812378a40a3ea72d4f19e00d
+      internalID: 2051608807
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: buttons_1
+      name: Buttons_2
       rect:
         serializedVersion: 2
         x: 0
@@ -152,14 +173,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 09dc34f056c8b9e4bb3c10913f27c96b
-      internalID: -618469903
+      spriteID: c03433589c360a8409e816c40a559ff4
+      internalID: 862017133
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: buttons_2
+      name: Buttons_3
       rect:
         serializedVersion: 2
         x: 0
@@ -173,8 +194,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 379d9749a57af244489639e36f668737
-      internalID: 223892415
+      spriteID: c3cd3d20edb69fc4c99c39df06a0a0a3
+      internalID: 529816542
       vertices: []
       indices: 
       edges: []
@@ -190,9 +211,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      buttons_2: 223892415
-      buttons_0: -266602153
-      buttons_1: -618469903
+      Buttons_3: 529816542
+      Buttons_2: 862017133
+      Buttons_0: 323927788
+      Buttons_1: 2051608807
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
