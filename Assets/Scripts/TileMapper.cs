@@ -72,6 +72,14 @@ public class TileMapper : MonoBehaviour
     }
 
     /// <summary>
+    /// Changes the style of the tiles to the one selected in the dropdown.
+    /// </summary>
+    public void ChangeStyle()
+    {
+        wallTiles = styles[styleSelector.value];
+    }
+
+    /// <summary>
     /// Returns the maps bound size.
     /// </summary>
     /// <returns>The number of set tiles.</returns>
@@ -88,11 +96,6 @@ public class TileMapper : MonoBehaviour
         styles[2] = brickWalls;
         styles[3] = rockWalls;
 
-        wallTiles = styles[styleSelector.value];
-    }
-
-    public void ChangeStyle()
-    {
         wallTiles = styles[styleSelector.value];
     }
 }

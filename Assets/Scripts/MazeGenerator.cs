@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,14 +15,20 @@ public class MazeGenerator : MonoBehaviour
     [SerializeField]
     TileMapper tileMapper;
 
+    [SerializeField]
+    CameraController cameraController;
+
     // The maze grid, where 0 means no path, any other (1-15) a connection.
     private int[,] maze;
 
     // Structs holding information on directions.
     private Direction[] directions;
 
-    // The first starting cell.
+    // The stack of cells for iterative backtracker.
     private Stack<Cell> cells;
+
+    // Stack for each of the parallelly running backtrackers
+    private Stack<Cell>[] stacks;
 
     // Sizes can't be negative and never exceed 250 in this project,
     // bytes would fit well, but integers are easier on coding further.
@@ -40,6 +48,13 @@ public class MazeGenerator : MonoBehaviour
 
         cells = new Stack<Cell>();
 
+        stacks = new Stack<Cell>[4] {
+            new Stack<Cell>(),
+            new Stack<Cell>(),
+            new Stack<Cell>(),
+            new Stack<Cell>()
+        };
+
         GenerateMaze();
     }
 
@@ -53,15 +68,19 @@ public class MazeGenerator : MonoBehaviour
         ClearMaze();
         InitializeStack();
 
-        // Call the maze generation algorithm.
-        IterativeBacktracker();
+        // Call the iterative maze generation algorithm.
+        // Runs in background as a coroutine, to not slowdown the game.
+        StartCoroutine(IterativeBacktracker());
 
-        // TODO: Misconception - The former code doesn't even run in parallel
-        //RecursiveBacktracker(x,y);
+        // Call the maze generation algorithm on each starting cell in their respective quadrant
+        /*ParallelBacktracker(stacks[i]); <- i: 1-4; TODO: figure out how to do it parallelly*/
+
+        // RecursiveBacktracker(x,y); WARNING: Causes Stack Overflow, do NOT use. Juzst proof of concept.
 
         // TODO: Think about adding more algorithms to pick here, as this was rather easy.
 
         tileMapper.PaintMap(maze, width, height);
+        cameraController.CalculateCameraSize();
     }
 
     // Getter and Setter methods.
@@ -140,36 +159,28 @@ public class MazeGenerator : MonoBehaviour
     }
 
     /// <summary>
-    /// Clears stack and initializes first cell.
+    /// Clears all stacks and initializes first cell.
     /// </summary>
     private void InitializeStack()
     {
         cells.Clear();
         cells.Push(new Cell(Random.Range(0, width >> 1), Random.Range(0, height >> 1)));
-    }
 
-    /// <summary>
-    /// The actual implementation of the generating algorithm.
-    /// Using the Recursive Backtracking algorithm.
-    /// </summary>
-    /// <param name="currentX"></param>
-    /// <param name="currentY"></param>
-    private void RecursiveBacktracker(int currentX, int currentY)
-    {
-        ShuffleDirections(directions);
+        int halfX = width >> 1;    // Half the size, for starting positions of
+        int halfY = height >> 1;    // the four starting cells in each quadrant
 
-        foreach (Direction dir in directions)
+        // Starting Cells for each quadrant for the parallelly running backtrackers
+        Cell[] starters = new Cell[4] {
+            new Cell(Random.Range(0, halfX),    Random.Range(0, halfY)),        // Up left 
+            new Cell(Random.Range(halfX, width),Random.Range(0, halfY)),        // Up right
+            new Cell(Random.Range(0, halfX),    Random.Range(halfY, height)),   // Down left
+            new Cell(Random.Range(halfX, width),Random.Range(halfY, height)),   // Down right
+        };
+
+        for (int i = 0; i < stacks.Length; i++)
         {
-            int newX = currentX + dir.x;
-            int newY = currentY + dir.y;
-
-            if(IsValidMove(newX, newY))
-            {
-                maze[currentX, currentY] |= dir.value;
-                maze[newX, newY] |= dir.opposite;
-
-                RecursiveBacktracker(newX, newY);
-            }
+            stacks[i].Clear();
+            stacks[i].Push(starters[i]);
         }
     }
 
@@ -177,9 +188,8 @@ public class MazeGenerator : MonoBehaviour
     /// The actual implementation of the generating algorithm.
     /// Using the Iterative Backtracking approach.
     /// </summary>
-    /// <param name="currentX"></param>
-    /// <param name="currentY"></param>
-    private void IterativeBacktracker()
+    /// <returns>An enumerator.</returns>
+    private IEnumerator IterativeBacktracker()
     {
         while (cells.Count > 0) {
             Cell current = cells.Pop();
@@ -198,6 +208,62 @@ public class MazeGenerator : MonoBehaviour
 
                     cells.Push(new Cell(newX, newY));
                 }
+            }
+        }
+        yield return null;
+    }
+
+    /// <summary>
+    /// The actual implementation of the generating algorithm.
+    /// Using the Recursive Backtracking algorithm running parallely.
+    /// Sadly still not working, can't figure out multithreading for this...
+    /// </summary>
+    /// <param name="stack">The stack used to store Cells for this iteration.</param>
+    private void ParallelBacktracker(Stack<Cell> stack)
+    {
+        while (stack.Count > 0)
+        {
+            Cell current = stack.Pop();
+
+            ShuffleDirections(directions);
+
+            foreach (Direction dir in directions)
+            {
+                int newX = current.x + dir.x;
+                int newY = current.y + dir.y;
+
+                if (IsValidMove(newX, newY))
+                {
+                    maze[current.x, current.y] |= dir.value;
+                    maze[newX, newY] |= dir.opposite;
+
+                    stack.Push(new Cell(newX, newY));
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// The actual implementation of the generating algorithm.
+    /// Using the Recursive Backtracking algorithm. Causes Stack Overflow!!!
+    /// </summary>
+    /// <param name="currentX">The current cell to check at position X.</param>
+    /// <param name="currentY">The current cell to check at position Y.</param>
+    private void RecursiveBacktracker(int currentX, int currentY)
+    {
+        ShuffleDirections(directions);
+
+        foreach (Direction dir in directions)
+        {
+            int newX = currentX + dir.x;
+            int newY = currentY + dir.y;
+
+            if (IsValidMove(newX, newY))
+            {
+                maze[currentX, currentY] |= dir.value;
+                maze[newX, newY] |= dir.opposite;
+
+                RecursiveBacktracker(newX, newY);
             }
         }
     }

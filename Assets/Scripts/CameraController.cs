@@ -9,25 +9,12 @@ public class CameraController : MonoBehaviour
     TileMapper tileMapper;
 
     [SerializeField]
-    int offset = 10;
+    int offset = 1;
 
-    private float ratio;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        ratio = camera.aspect;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        var (center, size) = CalculateOrthograficSize();
-        camera.transform.position = center;
-        camera.orthographicSize = size;
-    }
-
-    private (Vector3 center, float size) CalculateOrthograficSize()
+    /// <summary>
+    /// Scales the camera view to fit the entire maze in the screen.
+    /// </summary>
+    public void CalculateCameraSize()
     {
         Bounds bounds = tileMapper.GetBounds();
 
@@ -36,11 +23,12 @@ public class CameraController : MonoBehaviour
         float vertical = bounds.size.y;
         float horizontal = bounds.size.x;
 
-        // Don't really like this, there must be a mathematical relation (numbers are similar), but I can't figure it out now.
-        float size = (vertical > horizontal) ? ((vertical-offset) / 10) * 6 : ((horizontal-offset) / 10) * 3;
+        // Still doesn't look too well, but all the mazes are in the camera view. TODO: Needs fixing!
+        float size = Mathf.Max(vertical, horizontal) * 0.5f;
 
         Vector3 center = bounds.center + new Vector3(0, 0, -10);
 
-        return (center, size);
+        camera.transform.position = center;
+        camera.orthographicSize = size;
     }
 }
