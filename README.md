@@ -1,5 +1,4 @@
-# Maze Generator
-Making a maze generator in Unity with C# as a part of an assessment task for an internship position.
+# Tauros Traps
 After lots of back and forth this implements the recursive backtracking algorithm.
 For efficiency reasons, it also should use multible starting cells, and instead of classes uses structs.
 Other than that it should hopefully rely on bitwise operations for calculating paths, as these are faster.
