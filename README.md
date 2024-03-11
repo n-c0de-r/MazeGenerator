@@ -1,6 +1,6 @@
 # Tauros Traps
 After lots of back and forth this implements the recursive backtracking algorithm.
-For efficiency reasons, it also should use multible starting cells, and instead of classes uses structs.
+For efficiency reasons, it also should use multiple starting cells, and instead of classes uses structs.
 Other than that it should hopefully rely on bitwise operations for calculating paths, as these are faster.
 
 ### Style
@@ -9,7 +9,7 @@ This project generates 2D pixelart mazes.
 ### Multimedia
 Sources mainly from [OpenGameArt.org](https://opengameart.org/), editing via [Audacity](https://www.audacityteam.org/) for audio, and [Avidemux](https://avidemux.sourceforge.net/) & [Shotcut](https://shotcut.org/) for video, [LibreSprite](https://github.com/LibreSprite/LibreSprite) was used to edit & make some assets.
 
-### Bonus (if I can make it)
+### Bonus (if I can make it; edit: that never happened)
 Provides a little game experience within the labyrinth.
 With collectible objects and some tiny additional challenge.
 
